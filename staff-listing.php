@@ -70,6 +70,7 @@ if ( !class_exists( 'Staff_Listing' ) ) {
 
     function register_custom_taxonomy() {
 
+      # TODO: Make menu item in the Admin area - highlight.
       register_taxonomy(
         'departments',
         'staff_listing', array( 
