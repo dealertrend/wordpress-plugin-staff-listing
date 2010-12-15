@@ -16,11 +16,11 @@ if ( !class_exists( 'Staff_Listing' ) ) {
     # PHP 4 Constructor
     function Staff_Listing() {
 
-      $this->register_custom_post_type();    
-      $this->register_custom_taxonomy();    
+      add_action( 'init' , array( &$this , 'register_custom_post_type' ) );
+      add_action( 'init' , array( &$this , 'register_custom_taxonomy' ) );
 
       # Admin interface init
-      add_action( 'admin_init' , array( &$this , "admin_init" ) );
+      add_action( 'admin_init' , array( &$this , 'admin_init' ) );
 
       # Produce content for listing pages.
       add_action( 'template_redirect' , array( &$this , 'template_redirect' ) );
