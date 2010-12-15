@@ -1,6 +1,6 @@
 <?php
 /*
- * Plugin Name: DealerTrend Staff Listing
+ * Plugin Name: Staff Listing
  * Plugin URI: http://www.automotivewordpresswebsites.com/website-plugin/
  * Version: 1.0
  * Author: <a href="http://www.dealertrend.com/">DealerTrend Inc.</a>
