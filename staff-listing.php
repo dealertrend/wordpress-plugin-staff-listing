@@ -39,7 +39,8 @@ if ( !class_exists( 'Staff_Listing' ) ) {
     function register_custom_post_type() {
 
       register_post_type(
-        'staff_listing', array(
+        'staff_listing',
+        array(
           'labels' => array(
             'name' => 'Staff Listings',
             'add_new_item' => 'Add a Staff Member',
@@ -73,9 +74,10 @@ if ( !class_exists( 'Staff_Listing' ) ) {
       # TODO: Make menu item in the Admin area - highlight.
       register_taxonomy(
         'departments',
-        'staff_listing', array( 
+        'staff_listing',
+        array( 
           'labels' => array(
-            'name' => 'Departments',
+            'name' => 'Manage Departments',
             'add_new_item' => 'Add New Department',
             'new_item_name' => 'New Department Name',
             'add_new' => 'Add New Department',
@@ -157,15 +159,22 @@ if ( !class_exists( 'Staff_Listing' ) ) {
       # Bring wp_query into scope.
       global $wp_query;
 
-      if( $wp_query->query_vars[ 'post_type' ] == 'staff_listing' || $wp_query->query_vars[ 'taxonomy' ] == 'departments' || $wp_query->query_vars[ 'category_name' ] == 'staff' || $wp_query->query_vars[ 'category_name' ] == 'departments' ) {
-        if( $wp_query->query_vars[ 'name' ] ):
-          include( 'single.php' );
-          die();
-        else:
-          include( 'listing.php' );
-          die();
-        endif;
-      }
+      if( isset( $wp_query->query_vars ) ) {
+        if( $wp_query->query_vars[ 'post_type' ] == 'staff_listing' || 
+            $wp_query->query_vars[ 'category_name' ] == 'staff' || 
+            $wp_query->query_vars[ 'category_name' ] == 'departments' || 
+            ( isset( $wp_query->query_vars[ 'taxonomy' ] ) && $wp_query->query_vars[ 'taxonomy' ] == 'departments'  )
+        ) {
+          if( $wp_query->query_vars[ 'name' ] ):
+            include( 'single.php' );
+          else:
+            include( 'listing.php' );
+          endif;
+
+          exit;
+
+        }
+      }      
 
     } # End tepmlate_redirect()
   
@@ -214,6 +223,22 @@ if ( !class_exists( 'Staff_Listing' ) ) {
   
     function admin_init() {
 
+      # These categories prevenet WordPress from serving a 404 error when people goto /staff
+      $required_category = array(
+        'cat_name' => 'Staff Listing',
+        'category_description' => 'DO NOT USE: This is a place holder for the Staff Listing Plugin!',
+        'category_nicename' => 'staff',
+        'category_parent' => ''
+      );
+      wp_insert_category($required_category);
+      $required_category = array(
+          'cat_name' => 'Departments',
+          'category_description' => 'DO NOT USE: This is a place holder for the Staff Listing Plugin!',
+          'category_nicename' => 'departments',
+          'category_parent' => ''
+      );
+      wp_insert_category($required_category);
+
       add_filter( 'manage_edit_staff_listing_edit_columns', array( &$this , 'edit_columns' ) );
       add_action( 'manage_posts_staff_listing_custom_columns', array( &$this , 'custom_columns' ) );
 
@@ -230,6 +255,7 @@ if ( !class_exists( 'Staff_Listing' ) ) {
 
       $custom = get_post_custom( $post->ID );
 
+      # TODO: Verify index existancd before comparing values.
       if( $custom[ 'staff_listing_title' ][ 0 ]) {
         $title = $custom[ 'staff_listing_title' ][ 0 ];
       } else {
