@@ -1,24 +1,3 @@
-<?php
-/*
- * Theme Name:     Lynn Smith Chevrolet
- * Theme URI:      http://www.dealertrend.com
- * Description:    
- * Author:         DealerTrend, Inc.
- * Author URI:     http://www.dealertrend.com
- * Template:       cardealerpress
- * Version:        1.0
- */
-
-// Do not delete these lines
-	if (!empty($_SERVER['SCRIPT_FILENAME']) && 'comments.php' == basename($_SERVER['SCRIPT_FILENAME']))
-		die (__('Please do not load this page directly. Thanks!', ''));
-
-	if ( post_password_required() ) { ?>
-		<p class="nocomments">This post is password protected. Enter the password to view comments.</p>
-	<?php
-		return;
-	}
-?>
 
 <?php // You can start editing here. ?>
 
@@ -58,7 +37,7 @@
 
 <div id="respond">
 
-<h3>Post a. reply</h3>
+<h3>Reviews</h3>
 
 <?php if ( get_option('comment_registration') && !$user_ID ) : ?>
 <p>You must be <a href="<?php echo get_option('siteurl'); ?>/wp-login.php?redirect_to=<?php echo urlencode(get_permalink()); ?>">logged in</a> to post a comment.</p></div>
