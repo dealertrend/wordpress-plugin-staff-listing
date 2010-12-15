@@ -50,13 +50,10 @@ if ( !class_exists( 'Staff_Listing' ) ) {
           'public' => false,
           'publicly_queryable' => true,
           'show_ui' => true, 
-          '_builtin' => false, 
-          '_edit_link' => 'post.php?post=%d',
-          'capability_type' => 'post',
           'hierarchical' => false,
           'rewrite' => array(
             'slug' => 'staff',
-            'with_front' => FALSE
+            'with_front' => false
           ),
           'query_var' => 'staff', 
           'supports' => array(
@@ -76,17 +73,22 @@ if ( !class_exists( 'Staff_Listing' ) ) {
       register_taxonomy(
         'departments',
         'staff_listing', array( 
-          'hierarchical' => true,  
-          'label' => 'Departments',
           'labels' => array(
-            'add_new_item' => 'Add  New Department',
-            'new_item_name' => 'New Department Name'
+            'name' => 'Departments',
+            'add_new_item' => 'Add New Department',
+            'new_item_name' => 'New Department Name',
+            'add_new' => 'Add New Department',
+            'singular_name' => 'Department'
           ),
-          'query_var' => true,
+          'public' => false,
+          'publicly_queryable' => true,
+          'show_ui' => true,
+          'hierarchical' => true,
           'rewrite' => array(
             'slug' => 'departments',
-            'with_front' => FALSE
-          ), 
+            'with_front' => false
+          ),
+          'query_var' => 'departments'
         )
       );
  
