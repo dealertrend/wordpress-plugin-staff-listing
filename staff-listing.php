@@ -19,6 +19,8 @@ if ( !class_exists( 'Staff_Listing' ) ) {
       add_action( 'init' , array( &$this , 'register_custom_post_type' ) );
       add_action( 'init' , array( &$this , 'register_custom_taxonomy' ) );
 
+      add_action( 'comments_template' , array( &$this , 'comments' ) );
+
       # Admin interface init
       add_action( 'admin_init' , array( &$this , 'admin_init' ) );
 
@@ -34,6 +36,15 @@ if ( !class_exists( 'Staff_Listing' ) ) {
       }
 
     } # End Constructor
+
+    function comments() {
+
+      if( $this->is_staff_listing() ) {
+        include( 'comments.php' );
+        exit;
+      }
+
+    }
 
     # Register new post type for staff.
     function register_custom_post_type() {
@@ -152,7 +163,24 @@ if ( !class_exists( 'Staff_Listing' ) ) {
       }
 
     } # End custom_columns()
-  
+ 
+    function is_staff_listing() {
+
+      # Bring wp_query into scope.
+      global $wp_query;
+
+      if( $wp_query->query_vars[ 'post_type' ] == 'staff_listing' || 
+        $wp_query->query_vars[ 'category_name' ] == 'staff' || 
+        $wp_query->query_vars[ 'category_name' ] == 'departments' || 
+        ( isset( $wp_query->query_vars[ 'taxonomy' ] ) && $wp_query->query_vars[ 'taxonomy' ] == 'departments'  )
+      ) {
+        return true;
+      }
+
+      return false;
+
+    }
+ 
     # Redirect template based on post list or single post
     function template_redirect() {
 
@@ -160,11 +188,7 @@ if ( !class_exists( 'Staff_Listing' ) ) {
       global $wp_query;
 
       if( isset( $wp_query->query_vars ) ) {
-        if( $wp_query->query_vars[ 'post_type' ] == 'staff_listing' || 
-            $wp_query->query_vars[ 'category_name' ] == 'staff' || 
-            $wp_query->query_vars[ 'category_name' ] == 'departments' || 
-            ( isset( $wp_query->query_vars[ 'taxonomy' ] ) && $wp_query->query_vars[ 'taxonomy' ] == 'departments'  )
-        ) {
+        if( $this->is_staff_listing() ) {
           if( $wp_query->query_vars[ 'name' ] ):
             include( 'single.php' );
           else:

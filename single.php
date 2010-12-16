@@ -1,7 +1,5 @@
 <?php
 
-  # TODO: Fix comments.
-
   # Bring objects into scope.
   global $post, $query_string;
 
@@ -13,7 +11,11 @@
   <?php if( have_posts() ) : while ( have_posts() ) : the_post(); ?>
   <div class="staff-listing-member">
     <div class="staff-listing-image"><?php the_post_thumbnail( 'medium' ); ?></div>
-    <h2 class="staff-listing-name"><a href="<?php the_permalink() ?>" rel="bookmark" title="<?php the_title(); ?>"><?php the_title(); ?></a></h2>
+    <h2 class="staff-listing-name">
+      <a href="<?php the_permalink() ?>" rel="bookmark" title="<?php the_title(); ?>">
+        <?php the_title(); ?>
+      </a>
+    </h2>
     <h4 class="staff-listing-title">
     <?php
       $meta = get_post_custom( $post->ID );
@@ -31,7 +33,7 @@
     <?php trackback_rdf(); ?>
     -->
     <div class="postcomments">
-      <?php comments_template( WP_PLUGIN_URL . '/' . basename( dirname( __FILE__ ) ) . '/comments.php' , TRUE ); ?> 
+      <?php comments_template(); ?> 
     </div>
   </div>
   <?php endwhile; else: ?>
