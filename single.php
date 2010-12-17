@@ -33,7 +33,7 @@
     <?php trackback_rdf(); ?>
     -->
     <div class="postcomments">
-      <?php comments_template(); ?> 
+      <?php #comments_template(); ?> 
     </div>
   </div>
   <?php endwhile; else: ?>
