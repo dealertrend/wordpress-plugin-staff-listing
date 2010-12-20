@@ -266,7 +266,7 @@ if ( !class_exists( 'Staff_Listing' ) ) {
       add_filter( 'manage_edit_staff_listing_edit_columns', array( &$this , 'edit_columns' ) );
       add_action( 'manage_posts_staff_listing_custom_columns', array( &$this , 'custom_columns' ) );
 
-      # Custom me ta boxes for the edit staff screen
+      # Custom meta boxes for the edit staff screen
       add_meta_box( 'staff_listing_title', 'Position or Title' , array( &$this , 'meta_options' ), 'staff_listing', 'normal' , 'high' );
 
     } # End admin_init()
