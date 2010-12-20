@@ -1,9 +1,17 @@
 <?php
 
   # Bring objects into scope.
-  global $post, $query_string;
+  global $post, $query_string, $wp_query;
 
-  query_posts($query_string . "&orderby=title&order=ASC&post_type=staff_listing");
+  switch( $wp_query->query_vars[ 'category_name' ] ) { 
+    case 'departments':
+      query_posts( 'post_type=staff_listing&departments=' . $wp_query->query_vars[ 'name' ] );
+      break;
+    default:
+      query_posts( $query_string . '&orderby=title&order=ASC&post_type=staff_listing' );
+      break;
+  }
+
   get_header(); 
 
 ?>
@@ -19,9 +27,9 @@
       <h4 class="staff-listing-title">
       <?php
         $meta = get_post_custom( $post->ID );
-  		  $title = $meta[ 'staff_listing_title' ][ 0 ];
+        $title = $meta[ 'staff_listing_title' ][ 0 ];
         echo $title;
-      ?>
+      ?>  
       </h4>
       <div class="staff-listing-content">
         <?php the_content( __( 'Read more' ) ); ?>
@@ -38,6 +46,6 @@
     </div>
     <?php endwhile; else: ?>
       <p>Sorry, no listings matched your criteria.</p>
-    <?php endif; ?>		
+    <?php endif; ?>   
   </div>
 <?php get_footer(); ?>
