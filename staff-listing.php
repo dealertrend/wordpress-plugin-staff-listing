@@ -59,8 +59,10 @@ if ( !class_exists( 'Staff_Listing' ) ) {
             'add_new' => 'Add a Staff Member',
             'singular_name' => 'Staff Member'
           ),
-          'public' => false,
+          'public' => true,
           'publicly_queryable' => true,
+          'show_in_nav_menus'  => false,
+          'exclude_from_search' => false,
           'show_ui' => true, 
           'hierarchical' => false,
           'rewrite' => array(
@@ -82,7 +84,6 @@ if ( !class_exists( 'Staff_Listing' ) ) {
 
     function register_custom_taxonomy() {
 
-      # TODO: Make menu item in the Admin area - highlight.
       register_taxonomy(
         'departments',
         'staff_listing',
@@ -94,7 +95,7 @@ if ( !class_exists( 'Staff_Listing' ) ) {
             'add_new' => 'Add New Department',
             'singular_name' => 'Department'
           ),
-          'public' => false,
+          'public' => true,
           'publicly_queryable' => true,
           'show_ui' => true,
           'hierarchical' => true,
