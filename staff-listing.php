@@ -263,8 +263,9 @@ if ( !class_exists( 'Staff_Listing' ) ) {
       );
       wp_insert_category($required_category);
 
-      add_filter( 'manage_edit_staff_listing_edit_columns', array( &$this , 'edit_columns' ) );
-      add_action( 'manage_posts_staff_listing_custom_columns', array( &$this , 'custom_columns' ) );
+      # http://codex.wordpress.org/Plugin_API/Action_Reference/manage_posts_custom_column
+      add_filter( 'manage_edit-staff_listing_columns', array( &$this , 'edit_columns' ) );
+      add_action( 'manage_posts_custom_column', array( &$this , 'custom_columns' ) );
 
       # Custom meta boxes for the edit staff screen
       add_meta_box( 'staff_listing_title', 'Position or Title' , array( &$this , 'meta_options' ), 'staff_listing', 'normal' , 'high' );
