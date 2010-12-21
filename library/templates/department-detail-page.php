@@ -15,10 +15,10 @@
     <?php if( have_posts() ) : while ( have_posts() ) : the_post(); ?>
     <div class="staff-listing-item">
       <div class="staff-listing-member-image">
-        <?php if( the_post_thumbnail( 'thumbnail' ) ) { ?>
-          <a href="<?php the_permalink() ?>" rel="bookmark" title="<?php the_title(); ?>"><?php the_post_thumbnail( 'thumb' ); ?></a>
+        <?php if( has_post_thumbnail( $post->ID ) ) { ?>
+          <a href="<?php the_permalink() ?>" rel="bookmark" title="<?php the_title(); ?>"><?php the_post_thumbnail( 'thumbnail' ); ?></a>
         <?php } else { ?>
-          <div style="height:100px; width:100px; background:#e1e1e1; border:1px solid #CCC; margin:auto;"><span style="display:block; margin-top:45px; text-align:center;">No Image</span></div>
+          <div style="height:100px; width:100px; background:#e1e1e1; border:1px solid #CCC; margin:auto;"><span style="display:block; margin-top:40px; text-align:center;">No Image</span></div>
         <?php } ?>
       </div>
       <h2 class="staff-listing-member-name">
