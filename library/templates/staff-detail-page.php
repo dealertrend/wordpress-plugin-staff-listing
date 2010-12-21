@@ -7,6 +7,7 @@
 
   get_header(); 
 
+  if( !empty( $results ) ) :
 ?>
   <div id="staff-listing-single">
     <?php
@@ -52,4 +53,9 @@
       <p>Sorry, no listings matched your criteria.</p>
     <?php endif; ?>   
   </div>
+
+<?php else: ?>
+  <p>Sorry, no listings matched your criteria.</p>
+<?php endif; ?>
+
 <?php get_footer(); ?>

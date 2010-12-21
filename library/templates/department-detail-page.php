@@ -7,7 +7,10 @@
 
   get_header(); 
 
+  if( isset( $wp_query->queried_object->name ) ) :
+
 ?>
+
   <div id="staff-listing">
     <?php
         echo '<h3>' . $wp_query->queried_object->name . '</h3>';
@@ -50,4 +53,9 @@
       <p>Sorry, no listings matched your criteria.</p>
     <?php endif; ?>   
   </div>
+
+<?php else: ?>
+      <p>Sorry, no listings matched your criteria.</p>
+<?php endif; ?>
+
 <?php get_footer(); ?>
