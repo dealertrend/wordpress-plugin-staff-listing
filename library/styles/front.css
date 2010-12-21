@@ -1,4 +1,4 @@
-/* Listing page. */
+/* Staff Listing page. */
 #staff-listing .staff-listing-item { background:#FFF; width:215px; float:left; margin:10px; border:1px solid #EEE; -moz-border-radius: 5px; }
 #staff-listing .staff-listing-item .staff-listing-member-departments,
 #staff-listing .staff-listing-item .staff-listing-member-image,
@@ -7,15 +7,20 @@
 #staff-listing .staff-listing-item .staff-listing-member-image { padding:10px; text-align:center; }
 #staff-listing .staff-listing-item .staff-listing-member-name a { color:#000; font:bold 15px Helvetica; }
 #staff-listing .staff-listing-item .staff-listing-member-title { color:#000; font:normal 12px Helvetica; }
-#staff-listing .staff-listing-item .staff-listing-member-content { color:#000; font:normal 12px Helvetica; height:130px; padding:10px; }
-#staff-listing .staff-listing-item .staff-listing-member-departments { color:#000; font:normal 12px Helvetica; padding:10px; }
+#staff-listing .staff-listing-item .staff-listing-member-content { color:#000; font:normal 12px Helvetica; height:130px; padding:10px; overflow:hidden; margin-bottom:10px; }
+#staff-listing .staff-listing-item .staff-listing-member-departments { color:#000; font:normal 12px Helvetica; padding:0 10px 10px 10px; }
+
+/* Department Listing page. */
+#department-listing .department-listing-item { background:#FFF; width:215px; float:left; margin:10px; border:1px solid #EEE; -moz-border-radius: 5px; }
+#department-listing .department-listing-item .department-listing-name { padding:10px; text-align:center; }
+#department-listing .department-listing-item .department-listing-name a { color:#000; font:bold 15px Helvetica; text-decoration:none; }
 
 /* Single Page */
 #staff-listing-single .staff-listing-member { background:#FFF; margin:10px; border:1px solid #EEE; -moz-border-radius:5px; padding:10px; }
 #staff-listing-single .staff-listing-member .staff-listing-departments,
 #staff-listing-single .staff-listing-member .staff-listing-image,
 #staff-listing-single .staff-listing-member .staff-listing-title,
-#staff-listing-single .staff-listing-member .staff-listing-name { padding:0px 10px; }
+#staff-listing-single .staff-listing-member .staff-listing-name { padding:0px 10px; clear:none; }
 #staff-listing-single .staff-listing-member .staff-listing-image { text-align:center; float:left; margin-right:10px; }
 #staff-listing-single .staff-listing-member .staff-listing-name a { color:#000; font:bold 16px Helvetica; }
 #staff-listing-single .staff-listing-member .staff-listing-title { color:#000; font:normal 14px Helvetica; }

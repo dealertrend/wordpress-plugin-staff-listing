@@ -2,45 +2,38 @@
 /*
  * Plugin Name: Staff Listing
  * Plugin URI: http://www.automotivewordpresswebsites.com/website-plugin/
- * Version: 1.0
+ * Version: 1.5
  * Author: <a href="http://www.dealertrend.com/">DealerTrend Inc.</a>
  * Description: A staff listing using custom post types.
 */
 
+# Check to see if the object already exists.
 if ( !class_exists( 'Staff_Listing' ) ) {
 
+  # Objectification FTW
   class Staff_Listing {
-
-    var $meta_fields = array( 'staff_listing_title' );
 
     # PHP 4 Constructor
     function Staff_Listing() {
 
       add_action( 'init' , array( &$this , 'register_custom_post_type' ) );
       add_action( 'init' , array( &$this , 'register_custom_taxonomy' ) );
-
-      add_action( 'comments_template' , array( &$this , 'comments' ) );
-
-      # Admin interface init
+      add_action( 'comments_template' , array( &$this , 'reviews' ) );
       add_action( 'admin_init' , array( &$this , 'admin_init' ) );
-
-      # Produce content for listing pages.
       add_action( 'template_redirect' , array( &$this , 'template_redirect' ) );
-    
-      # Insert post hook
       add_action( 'wp_insert_post' , array ( &$this , 'wp_insert_post' ) , 10 , 2 );
-
-      # Only show the stylesheet if we are on the front end.
       if( !is_admin() ) {
         add_action( 'wp_print_styles' , array( &$this, 'staff_styles' ), 5 , null );
       }
 
     } # End Constructor
 
-    function comments() {
+    function reviews() {
 
-      if( $this->is_staff_listing() ) {
-        include( 'comments.php' );
+      global $wp_query;
+
+      if( $wp_query->query_vars[ 'category_name' ] == 'staff' ) {
+        include( dirname( __FILE__ ) . '/templates/reviews.php' );
         exit;
       }
 
@@ -133,7 +126,10 @@ if ( !class_exists( 'Staff_Listing' ) ) {
       switch( $column ) {
 
         case 'staff_listing_photo':
-          echo the_post_thumbnail( array( 100 , 100 ) );
+
+          $thumb = the_post_thumbnail( array( 100 , 100 ) );
+          if( !$thumb ) { echo '<div style="width:100px; height:100px; background:#e1e1e1; border:1px solid #CCC;"><span style="margin:40px 0; text-align:center; display:block;">No Picture</span></div>'; }
+
           break; 
 
         case 'staff_listing_description':
@@ -143,7 +139,7 @@ if ( !class_exists( 'Staff_Listing' ) ) {
         case 'staff_listing_title':
           $custom = get_post_custom();
           echo the_title( '<h3 style="margin:0px;">' , '</h3>' );
-          echo '<h4 style="margin:0px;">' . $custom[ 'staff_listing_title' ][0] . '</h4>';
+          echo '<h4 style="margin:0px;">' . $custom[ 'staff_listing_title' ][ 0 ] . '</h4>';
           echo edit_post_link( 'edit' , '<span style="margin:0px;">' , '</span>&nbsp;-&nbsp;<a target= "_new" href="' );
           echo the_permalink();
           echo '">view</a>';
@@ -152,9 +148,13 @@ if ( !class_exists( 'Staff_Listing' ) ) {
         case 'staff_listing_departments':
           $departments = get_the_terms( 0 , 'departments' );
           $departments_html = array();
+
+          if( !$departments ) continue;
+
           foreach( $departments as $department )
-            array_push( $departments_html , '<a href="' . get_term_link( $department->slug, 'departments' ) . '" target=_"blank">' . $department->name . '</a>' );        
+            array_push( $departments_html , '<a href="' . get_term_link( $department->slug , 'departments' ) . '" target=_"blank">' . $department->name . '</a>' );        
             echo implode( $departments_html , ', ' );
+
           break;
 
         default:
@@ -165,23 +165,6 @@ if ( !class_exists( 'Staff_Listing' ) ) {
 
     } # End custom_columns()
  
-    function is_staff_listing() {
-
-      # Bring wp_query into scope.
-      global $wp_query;
-
-      if( $wp_query->query_vars[ 'post_type' ] == 'staff_listing' || 
-        $wp_query->query_vars[ 'category_name' ] == 'staff' || 
-        $wp_query->query_vars[ 'category_name' ] == 'departments' || 
-        ( isset( $wp_query->query_vars[ 'taxonomy' ] ) && $wp_query->query_vars[ 'taxonomy' ] == 'departments'  )
-      ) {
-        return true;
-      }
-
-      return false;
-
-    }
- 
     # Redirect template based on post list or single post
     function template_redirect() {
 
@@ -189,30 +172,51 @@ if ( !class_exists( 'Staff_Listing' ) ) {
       global $wp_query;
 
       if( isset( $wp_query->query_vars ) ) {
-        if( $this->is_staff_listing() ) {
-          # TODO: Make department single page entries not full-width.
-          if( $wp_query->query_vars[ 'name' ] ):
-            include( 'single.php' );
-          else:
-            include( 'listing.php' );
-          endif;
+        switch( $wp_query->query_vars[ 'category_name' ] ) {
 
-          exit;
+          case 'staff':
+
+            if( !( $wp_query->query_vars[ 'name' ] && $wp_query->query_vars[ 'category_name' ] ) ) {
+              include( dirname( __FILE__ ) . '/library/templates/staff-list-page.php' );
+            }
+
+            exit;
+
+            break;
+
+          case 'departments':
+
+            if( !( $wp_query->query_vars[ 'name' ] && $wp_query->query_vars[ 'category_name' ] ) ) {
+              include( dirname( __FILE__ ) . '/library/templates/department-list-page.php' );
+            }
+
+            exit;
+
+            break;
+
+          default:
+
+              if( isset( $wp_query->query_vars[ 'staff' ] ) ) : include( dirname( __FILE__ ) . '/library/templates/staff-detail-page.php' ); exit; endif;
+              if( isset( $wp_query->query_vars[ 'departments' ] ) ) : include( dirname( __FILE__ ) . '/library/templates/department-detail-page.php' ); exit; endif;
+
+            break;
 
         }
-      }      
+      }
 
     } # End tepmlate_redirect()
   
     # When a post is inserted or updated
-    function wp_insert_post( $post_id, $post = null ) {
+    function wp_insert_post( $post_id , $post = null ) {
+    
+      $meta_fields = array( 'staff_listing_title' );
 
       if( $post->post_type == 'staff_listing' ) {
 
         # Loop through the POST data  
-        foreach( $this->meta_fields as $key ) {
+        foreach( $meta_fields as $key ) {
 
-          $value = isset( $_POST[$key] ) ? $_POST[$key] : NULL;
+          $value = isset( $_POST[ $key ] ) ? $_POST[ $key ] : NULL;
           if( empty( $value ) ) {
             delete_post_meta( $post_id , $key );
             continue;
@@ -227,11 +231,12 @@ if ( !class_exists( 'Staff_Listing' ) ) {
             } 
           } else {
             # If passed along is an array, we should remove all previous data
-            delete_post_meta( $post_id, $key );
+            delete_post_meta( $post_id , $key );
           
             # Loop through the array adding new values to the post meta as different entries with the same name
-            foreach( $value as $entry )
-             add_post_meta( $post_id , $key , $entry );
+            foreach( $value as $entry ) {
+              add_post_meta( $post_id , $key , $entry );
+            }
           }
  
         }
@@ -242,7 +247,7 @@ if ( !class_exists( 'Staff_Listing' ) ) {
   
     function staff_styles() {
 
-      wp_register_style( 'staff_listing_style' , WP_PLUGIN_URL . '/' . basename( dirname( __FILE__ ) ) . '/style.css' , 5 , NULL );
+      wp_register_style( 'staff_listing_style' , WP_PLUGIN_URL . '/' . basename( dirname( __FILE__ ) ) . '/library/styles/front.css' , 5 , NULL );
       wp_enqueue_style( 'staff_listing_style' );
 
     } # End staff_styles()
@@ -256,21 +261,23 @@ if ( !class_exists( 'Staff_Listing' ) ) {
         'category_nicename' => 'staff',
         'category_parent' => ''
       );
-      wp_insert_category($required_category);
+      wp_insert_category( $required_category );
+
       $required_category = array(
           'cat_name' => 'Departments',
           'category_description' => 'DO NOT USE: This is a place holder for the Staff Listing Plugin!',
           'category_nicename' => 'departments',
           'category_parent' => ''
       );
-      wp_insert_category($required_category);
+      wp_insert_category( $required_category );
 
+      # Naming of hook is intentional:
       # http://codex.wordpress.org/Plugin_API/Action_Reference/manage_posts_custom_column
-      add_filter( 'manage_edit-staff_listing_columns', array( &$this , 'edit_columns' ) );
-      add_action( 'manage_posts_custom_column', array( &$this , 'custom_columns' ) );
+      add_filter( 'manage_edit-staff_listing_columns' , array( &$this , 'edit_columns' ) );
+      add_action( 'manage_posts_custom_column' , array( &$this , 'custom_columns' ) );
 
       # Custom meta boxes for the edit staff screen
-      add_meta_box( 'staff_listing_title', 'Position or Title' , array( &$this , 'meta_options' ), 'staff_listing', 'normal' , 'high' );
+      add_meta_box( 'staff_listing_title' , 'Position or Title' , array( &$this , 'meta_options' ) , 'staff_listing', 'normal' , 'high' );
 
     } # End admin_init()
   
@@ -280,11 +287,10 @@ if ( !class_exists( 'Staff_Listing' ) ) {
       # Bring the post into scope.
       global $post;
 
-      $custom = get_post_custom( $post->ID );
+      $custom_post = get_post_custom( $post->ID );
 
-      # TODO: Verify index existancd before comparing values.
-      if( $custom[ 'staff_listing_title' ][ 0 ]) {
-        $title = $custom[ 'staff_listing_title' ][ 0 ];
+      if( isset( $custom_post[ 'staff_listing_title' ][ 0 ] ) ) {
+        $title = $custom_post[ 'staff_listing_title' ][ 0 ];
       } else {
         $title = NULL;
       }

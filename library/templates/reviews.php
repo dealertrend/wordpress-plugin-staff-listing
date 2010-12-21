@@ -9,26 +9,26 @@
   </ol>
 
   <div class="navigation">
-	  <div class="alignleft"><?php previous_comments_link() ?></div>
-	  <div class="alignright"><?php next_comments_link() ?></div>
+    <div class="alignleft"><?php previous_comments_link() ?></div>
+    <div class="alignright"><?php next_comments_link() ?></div>
   </div>
-	
-	<?php if( !empty( $comments_by_type[ 'pings' ] ) ):  ?>
-	  <h3>Trackbacks</h3>
-	  <strong>Check out what others are saying about this post...</strong>
-	  <ol class="commentlist">
-	  <?php wp_list_comments( 'type=pings' ); ?>
-	  </ol>
+  
+  <?php if( !empty( $comments_by_type[ 'pings' ] ) ):  ?>
+    <h3>Trackbacks</h3>
+    <strong>Check out what others are saying about this post...</strong>
+    <ol class="commentlist">
+    <?php wp_list_comments( 'type=pings' ); ?>
+    </ol>
     <br /><br />
-	<?php endif; ?>	
+  <?php endif; ?>  
 
 <?php else: ?>
 
-	<?php if( 'open' == $post->comment_status): ?>
+  <?php if( 'open' == $post->comment_status): ?>
 
-	<?php else: ?>
-		<p class="nocomments">Comments are closed.</p>
-	<?php endif; ?>
+  <?php else: ?>
+    <p class="nocomments">Comments are closed.</p>
+  <?php endif; ?>
 
 <?php endif; ?>
 
