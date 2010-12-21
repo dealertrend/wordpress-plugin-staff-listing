@@ -128,7 +128,7 @@ if ( !class_exists( 'Staff_Listing' ) ) {
         case 'staff_listing_photo':
 
           $thumb = the_post_thumbnail( array( 100 , 100 ) );
-          if( !$thumb ) { echo '<div style="width:100px; height:100px; background:#e1e1e1; border:1px solid #CCC;"><span style="margin:40px 0; text-align:center; display:block;">No Picture</span></div>'; }
+          if( !has_post_thumbnail( $post->ID ) ) { echo '<div style="width:100px; height:100px; background:#e1e1e1; border:1px solid #CCC;"><span style="margin:40px 0; text-align:center; display:block;">No Picture</span></div>'; }
 
           break; 
 
