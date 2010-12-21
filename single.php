@@ -5,10 +5,10 @@
 
   switch( $wp_query->query_vars[ 'category_name' ] ) { 
     case 'departments':
-      query_posts( 'post_type=staff_listing&departments=' . $wp_query->query_vars[ 'name' ] );
+      $results = query_posts( 'post_type=staff_listing&departments=' . $wp_query->query_vars[ 'name' ] );
       break;
     default:
-      query_posts( $query_string . '&orderby=title&order=ASC&post_type=staff_listing' );
+      $results = query_posts( $query_string . '&orderby=title&order=ASC&post_type=staff_listing' );
       break;
   }
 
@@ -16,6 +16,11 @@
 
 ?>
   <div id="staff-listing-single">
+    <?php
+      if( isset( $wp_query->query_vars[ 'name' ] ) && $wp_query->query_vars[ 'category_name' ] == 'departments' ) { 
+        echo '<h3>' . get_the_term_list( $results[ 0 ]->ID , 'departments' , 'Department [' , ', ' , ']' ) . '</h3>';
+      }   
+    ?>  
     <?php if( have_posts() ) : while ( have_posts() ) : the_post(); ?>
     <div class="staff-listing-member">
       <div class="staff-listing-image"><?php the_post_thumbnail( 'medium' ); ?></div>

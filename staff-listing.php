@@ -190,6 +190,7 @@ if ( !class_exists( 'Staff_Listing' ) ) {
 
       if( isset( $wp_query->query_vars ) ) {
         if( $this->is_staff_listing() ) {
+          # TODO: Make department single page entries not full-width.
           if( $wp_query->query_vars[ 'name' ] ):
             include( 'single.php' );
           else:
