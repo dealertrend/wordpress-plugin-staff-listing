@@ -18,10 +18,10 @@
     <?php if( have_posts() ) : while ( have_posts() ) : the_post(); ?>
     <div class="staff-listing-member">
       <div class="staff-listing-image">
-        <?php if( the_post_thumbnail( 'thumbnail' ) ) { ?>
+        <?php if( has_post_thumbnail( $post->ID ) ) { ?>
           <a href="<?php the_permalink() ?>" rel="bookmark" title="<?php the_title(); ?>"><?php the_post_thumbnail( 'medium' ); ?></a>
         <?php } else { ?>
-          <div style="height:150px; width:150px; background:#e1e1e1; border:1px solid #CCC;"><span style="display:block; margin-top:65px; text-align:center;">No Image</span></div>
+          <div style="height:150px; width:150px; background:#e1e1e1; border:1px solid #CCC; margin:auto;"><span style="display:block; margin-top:65px; text-align:center;">No Image</span></div>
         <?php } ?>
       </div>
       <h2 class="staff-listing-name">
