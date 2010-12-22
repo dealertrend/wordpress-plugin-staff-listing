@@ -176,8 +176,10 @@ if ( !class_exists( 'Staff_Listing' ) ) {
 
           case 'staff':
 
-            if( !( $wp_query->query_vars[ 'name' ] && $wp_query->query_vars[ 'category_name' ] ) ) {
+            if( !$wp_query->query_vars[ 'name' ] ) {
               include( dirname( __FILE__ ) . '/library/templates/staff-list-page.php' );
+            } else {
+              include( dirname( __FILE__ ) . '/library/templates/staff-detail-page.php' );
             }
 
             exit;
@@ -186,8 +188,10 @@ if ( !class_exists( 'Staff_Listing' ) ) {
 
           case 'departments':
 
-            if( !( $wp_query->query_vars[ 'name' ] && $wp_query->query_vars[ 'category_name' ] ) ) {
+            if( !$wp_query->query_vars[ 'name' ] ) ) {
               include( dirname( __FILE__ ) . '/library/templates/department-list-page.php' );
+            } else {
+              include( dirname( __FILE__ ) . '/library/templates/department-detail-page.php' );
             }
 
             exit;
