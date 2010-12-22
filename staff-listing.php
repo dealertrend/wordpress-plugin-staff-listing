@@ -188,7 +188,7 @@ if ( !class_exists( 'Staff_Listing' ) ) {
 
           case 'departments':
 
-            if( !$wp_query->query_vars[ 'name' ] ) ) {
+            if( !$wp_query->query_vars[ 'name' ] ) {
               include( dirname( __FILE__ ) . '/library/templates/department-list-page.php' );
             } else {
               include( dirname( __FILE__ ) . '/library/templates/department-detail-page.php' );
