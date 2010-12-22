@@ -16,7 +16,7 @@
 
   <div id="staff-listing">
     <?php
-        echo '<h3>' . $wp_query->queried_object->name . '</h3>';
+        echo '<h3>' . $department_name . '</h3>';
     ?>  
     <?php if( have_posts() ) : while ( have_posts() ) : the_post(); ?>
     <div class="staff-listing-item">
