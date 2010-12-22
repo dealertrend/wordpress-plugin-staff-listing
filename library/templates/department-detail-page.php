@@ -11,6 +11,9 @@
     $department_name = $wp_query->query[ 'name' ];
   elseif( isset( $wp_query->queried_object->name ) ) :
     $department_name = $wp_query->queried_object->name;
+  endif;
+
+  if( $department_name ) :
 
 ?>
 
