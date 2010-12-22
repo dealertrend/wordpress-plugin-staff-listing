@@ -7,7 +7,7 @@
 
   get_header(); 
 
-  if( isset( $wp_query->queried_object->name ) ) :
+  if( isset( $wp_query->query[ 'name' ] ) ) :
 
 ?>
 
