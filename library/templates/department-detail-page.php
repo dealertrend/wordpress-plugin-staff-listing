@@ -8,7 +8,7 @@
   get_header(); 
 
   if( isset( $wp_query->query[ 'name' ] ) ) :
-    $department_name = $wp_query->query[ 'name' ];
+    $department_name = ucwords( str_replace( '-' , ' ' , $wp_query->query[ 'name' ] ) );
   elseif( isset( $wp_query->queried_object->name ) ) :
     $department_name = $wp_query->queried_object->name;
   endif;
