@@ -3,7 +3,7 @@
   # Bring objects into scope.
   global $post, $query_string, $wp_query;
 
-  $results = query_posts( $query_string . '&orderby=title&order=ASC&post_type=staff_listing' );
+  $results = query_posts( $query_string . '&orderby=post_name&order=ASC&post_type=staff_listing' );
 
   get_header(); 
 

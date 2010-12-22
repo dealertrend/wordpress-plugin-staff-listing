@@ -6,7 +6,7 @@
   $parameters = array(
     'post_type' => 'staff_listing',
     'posts_per_page' => 10, 
-    'orderby' => 'title',
+    'orderby' => 'post_name',
     'order' => 'ASC'
   );  
   $the_query = new WP_Query( $parameters );
