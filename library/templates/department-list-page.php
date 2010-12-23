@@ -4,7 +4,7 @@
   global $post;
 
   $parameters = array(
-    'orderby' => 'post_name',
+    'orderby' => 'name',
     'order' => 'ASC',
     'style' => 'none',
     'hierarchical' => true,
