@@ -33,8 +33,7 @@ if ( !class_exists( 'Staff_Listing' ) ) {
       global $wp_query;
 
       if( $wp_query->query_vars[ 'category_name' ] == 'staff' ) {
-        include( dirname( __FILE__ ) . '/templates/reviews.php' );
-        exit;
+        include( dirname( __FILE__ ) . '/library/templates/reviews.php' );
       }
 
     }
