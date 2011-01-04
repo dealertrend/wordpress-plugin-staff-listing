@@ -16,9 +16,9 @@
 
   get_header();
 
-  echo '<h3>Departments</h3>';
-
   echo '<div id="department-listing">';
+
+  echo '<h3>Departments</h3>';
 
   if( $departments[ 0 ] != 'No categories' ) : foreach( $departments as $department ) :
     ?>

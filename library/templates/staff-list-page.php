@@ -13,9 +13,9 @@
 
   get_header();
 
-  echo '<h3>Staff Listing</h3>';
-
   echo '<div id="staff-listing">';
+
+  echo '<h3>Staff Listing</h3>';
 
   if( $the_query->have_posts() ) : while( $the_query->have_posts() ) : $the_query->the_post();
     ?>
