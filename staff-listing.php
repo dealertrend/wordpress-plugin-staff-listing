@@ -250,7 +250,7 @@ if ( !class_exists( 'Staff_Listing' ) ) {
   
     function staff_styles() {
 
-      wp_register_style( 'staff_listing_style' , WP_PLUGIN_URL . '/' . basename( dirname( __FILE__ ) ) . '/library/styles/front.css' , 5 , NULL );
+      wp_register_style( 'staff_listing_style' , WP_PLUGIN_URL . '/' . basename( dirname( __FILE__ ) ) . '/library/styles/staff-listings-front.css' , 5 , NULL );
       wp_enqueue_style( 'staff_listing_style' );
 
     } # End staff_styles()

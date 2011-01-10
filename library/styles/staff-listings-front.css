@@ -1,7 +1,7 @@
 /* Staff Listing page. */
 #staff-listing > h3, #department-listing > h3 { background:#FFF; width:98%; padding:0 1%; margin:auto; border:1px solid #EEE; -moz-border-radius: 5px; }
 
-#staff-listing .staff-listing-item { background:#FFF; width:215px; float:left; margin:10px; border:1px solid #EEE; -moz-border-radius: 5px; }
+#staff-listing .staff-listing-item { background:#FFF; width:215px; height:400px; float:left; margin:10px; border:1px solid #EEE; -moz-border-radius: 5px; overflow:hidden; }
 #staff-listing .staff-listing-item .staff-listing-member-departments,
 #staff-listing .staff-listing-item .staff-listing-member-image,
 #staff-listing .staff-listing-item .staff-listing-member-title,
