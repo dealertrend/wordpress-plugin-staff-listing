@@ -28,3 +28,7 @@
 #staff-listing-single .staff-listing-member .staff-listing-title { color:#000; font:normal 14px Helvetica; }
 #staff-listing-single .staff-listing-member .staff-listing-content { color:#000; font:normal 12px Helvetica; padding:10px; }
 #staff-listing-single .staff-listing-member .staff-listing-departments { color:#000; font:normal 12px Helvetica; padding:10px; }
+
+/* Reviews */
+#staff-listing-single .reply,
+#staff-listing-single .comment-author { display:none; }
