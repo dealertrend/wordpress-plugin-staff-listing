@@ -26,22 +26,19 @@
 <?php if( 'open' == $post->comment_status): ?>
 
   <div id="respond">
-    <h3>Add Reviews</h3>
-      <?php if( $current_user->ID ): ?>
-        <form action="<?php echo get_option( 'siteurl' ); ?>/wp-comments-post.php" method="post" id="commentform">
-          <p> 
-            Logged in as <a href="<?php echo get_option( 'siteurl' ); ?>/wp-admin/profile.php"><?php echo $current_user->user_nicename; ?></a>.
-            <a href="<?php echo wp_logout_url( get_permalink() ); ?>" title="Log out of this account">Log out &raquo;</a>
-          </p>
-
-          <p><textarea name="comment" id="comment" cols="100%" rows="10" tabindex="4"></textarea></p>
-
-          <p> 
-            <input name="submit" type="submit" id="submit" tabindex="5" value="Submit Comment" />
-            <?php comment_id_fields(); ?>&nbsp;<?php cancel_comment_reply_link( "Cancel reply" ); ?>
-          </p>
-
-          <?php do_action( 'comment_form' , $post->ID ); ?>
+    <?php if( $current_user->ID ): ?>
+      <h3>Add Reviews</h3>
+      <form action="<?php echo get_option( 'siteurl' ); ?>/wp-comments-post.php" method="post" id="commentform">
+        <p> 
+          Logged in as <a href="<?php echo get_option( 'siteurl' ); ?>/wp-admin/profile.php"><?php echo $current_user->user_nicename; ?></a>.
+          <a href="<?php echo wp_logout_url( get_permalink() ); ?>" title="Log out of this account">Log out &raquo;</a>
+        </p>
+        <p><textarea name="comment" id="comment" cols="100%" rows="10" tabindex="4"></textarea></p>
+        <p> 
+          <input name="submit" type="submit" id="submit" tabindex="5" value="Submit Comment" />
+          <?php comment_id_fields(); ?>&nbsp;<?php cancel_comment_reply_link( "Cancel reply" ); ?>
+        </p>
+        <?php do_action( 'comment_form' , $post->ID ); ?>
       </form>
     </div>
   <?php endif; ?>
