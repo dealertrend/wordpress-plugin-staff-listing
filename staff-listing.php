@@ -2,33 +2,64 @@
 /*
  * Plugin Name: Staff Listing
  * Plugin URI: http://www.automotivewordpresswebsites.com/website-plugin/
- * Version: 1.5
+ * Version: 2.0
  * Author: <a href="http://www.dealertrend.com/">DealerTrend Inc.</a>
  * Description: A staff listing using custom post types.
 */
 
-# Check to see if the object already exists.
+# TODO: Create a new taxonomy for reviews and stop depending on the comments template.
+
+# Sanity check.
 if ( !class_exists( 'Staff_Listing' ) ) {
 
-  # Objectification FTW
   class Staff_Listing {
 
     # PHP 4 Constructor
     function Staff_Listing() {
 
+      add_action( 'rewrite_rules_array' , array( &$this , 'add_rewrite_rules' ) , 1 );
+
       add_action( 'init' , array( &$this , 'register_custom_post_type' ) );
       add_action( 'init' , array( &$this , 'register_custom_taxonomy' ) );
-      add_action( 'comments_template' , array( &$this , 'reviews' ) );
+      add_action( 'init' , array( &$this , 'flush_rewrite_rules' ) , 1 );
+
       add_action( 'admin_init' , array( &$this , 'admin_init' ) );
-      add_action( 'template_redirect' , array( &$this , 'template_redirect' ) );
-      add_action( 'wp_insert_post' , array ( &$this , 'wp_insert_post' ) , 10 , 2 );
-      if( !is_admin() ) {
-        add_action( 'wp_print_styles' , array( &$this, 'staff_styles' ), 5 , null );
-      }
+      add_action( 'wp_insert_post' , array ( &$this , 'add_custom_fields' ) , 10 , 2 );
+
+      add_action( 'wp_print_styles' , array( &$this, 'staff_styles' ), 5 , null );
+
+      # Hijack the content.
+      add_action( 'template_redirect' , array( &$this , 'hijack_content' ) );
+      add_action( 'comments_template' , array( &$this , 'hijack_reviews' ) );
 
     } # End Constructor
 
-    function reviews() {
+    # Add our own rewrite rules for our custom post type and taxonomy.
+    function add_rewrite_rules( $existing_rules ) { 
+
+      $new_rules = array();
+
+      $new_rules[ '^(departments)$' ] = 'index.php?post_type=staff_listing&taxonomy=departments';
+      $new_rules[ '^(departments)/([^/]+)' ] = 'index.php?post_type=staff_listing&taxonomy=departments&departments=$matches[2]';
+      $new_rules[ '^(staff)$' ] = 'index.php?post_type=staff_listing&taxonomy=staff_listing';
+      $new_rules[ '^(staff)/([^/]+)' ] = 'index.php?post_type=staff_listing&taxonomy=staff_listing&name=$matches[2]';
+
+      return $new_rules + $existing_rules;
+
+    } # End add_rewrite_rules()
+
+    # Rebuild the rewrite rules.
+    function flush_rewrite_rules() {
+
+      global $wp_rewrite;
+
+      return $wp_rewrite->flush_rules();
+
+    } # End flush_rewrite_rules()
+
+    # Hijack the output of the comments template.
+    # TODO: Make this work with the new rewrite rules.
+    function hijack_reviews() {
 
       global $wp_query;
 
@@ -36,7 +67,7 @@ if ( !class_exists( 'Staff_Listing' ) ) {
         include( dirname( __FILE__ ) . '/library/templates/reviews.php' );
       }
 
-    }
+    } # End hijack_reviews()
 
     # Register new post type for staff.
     function register_custom_post_type() {
@@ -72,8 +103,9 @@ if ( !class_exists( 'Staff_Listing' ) ) {
         )
       );
 
-    } # End reigster_custom_post_type()
+    } # End register_custom_post_type()
 
+    # Register a new group classification.
     function register_custom_taxonomy() {
 
       register_taxonomy(
@@ -102,7 +134,7 @@ if ( !class_exists( 'Staff_Listing' ) ) {
     } # End register_custom_taxonomy()
   
     # Add custom columns to the member list page in the admin section.
-    function edit_columns( $columns ) {
+    function add_custom_columns( $columns ) {
 
       $columns = array( 
         'cb' => '<input type="checkbox" />',
@@ -114,10 +146,10 @@ if ( !class_exists( 'Staff_Listing' ) ) {
 
       return $columns;
 
-    } # End edit_columns()
+    } # End add_custom_columns()
   
     # Configure custom columns to add to the member list in admin
-    function custom_columns( $column ) {
+    function configure_custom_columns( $column ) {
 
       # Bring the post into scope.
       global $post; 
@@ -162,55 +194,38 @@ if ( !class_exists( 'Staff_Listing' ) ) {
 
       }
 
-    } # End custom_columns()
+    } # End configure_custom_columns()
  
-    # Redirect template based on post list or single post
-    function template_redirect() {
+    # Hijack the content when determining what page/post to display.
+    function hijack_content() {
 
       # Bring wp_query into scope.
       global $wp_query;
 
-      if( isset( $wp_query->query_vars ) ) {
-        switch( $wp_query->query_vars[ 'category_name' ] ) {
+      if( !isset( $wp_query->query_vars ) )
+        return false;
 
-          case 'staff':
+      $taxonomy = ( isset( $wp_query->query_vars[ 'taxonomy' ] ) ) ? $wp_query->query_vars[ 'taxonomy' ] : NULL;
+      $departments = ( isset( $wp_query->query_vars[ 'departments' ] ) ) ? $wp_query->query_vars[ 'departments' ] : NULL;
+      $name = ( isset( $wp_query->query_vars[ 'name' ] ) ) ? $wp_query->query_vars[ 'name' ] : NULL;
 
-            if( !$wp_query->query_vars[ 'name' ] ) {
-              include( dirname( __FILE__ ) . '/library/templates/staff-list-page.php' );
-            } else {
-              include( dirname( __FILE__ ) . '/library/templates/staff-detail-page.php' );
-            }
+      $template_file = false;
 
-            exit;
-
-            break;
-
-          case 'departments':
-
-            if( !$wp_query->query_vars[ 'name' ] ) {
-              include( dirname( __FILE__ ) . '/library/templates/department-list-page.php' );
-            } else {
-              include( dirname( __FILE__ ) . '/library/templates/department-detail-page.php' );
-            }
-
-            exit;
-
-            break;
-
-          default:
-
-              if( isset( $wp_query->query_vars[ 'staff' ] ) ) : include( dirname( __FILE__ ) . '/library/templates/staff-detail-page.php' ); exit; endif;
-              if( isset( $wp_query->query_vars[ 'departments' ] ) ) : include( dirname( __FILE__ ) . '/library/templates/department-detail-page.php' ); exit; endif;
-
-            break;
-
-        }
+      if( $taxonomy == 'staff_listing' ) {
+        $template_file = ( $name == NULL ) ? 'staff-list-page.php' : 'staff-detail-page.php';
+      } elseif( $taxonomy == 'departments' ) {
+        $template_file = ( $departments == NULL ) ? 'department-list-page.php' : 'department-detail-page.php';
       }
 
-    } # End tepmlate_redirect()
+      if( $template_file ) {
+        include( dirname( __FILE__ ) . '/library/templates/' . $template_file );
+        exit();
+      }
+
+    } # End hijack_content()
   
-    # When a post is inserted or updated
-    function wp_insert_post( $post_id , $post = null ) {
+    # Add custom fields for storing data when writing posts.
+    function add_custom_fields( $post_id , $post = null ) {
     
       $meta_fields = array( 'staff_listing_title' );
 
@@ -246,8 +261,9 @@ if ( !class_exists( 'Staff_Listing' ) ) {
 
       }
 
-    } # End wp_insert_option()
+    } # End add_custom_fields()
   
+    # Display styling on the front end.
     function staff_styles() {
 
       wp_register_style( 'staff_listing_style' , WP_PLUGIN_URL . '/' . basename( dirname( __FILE__ ) ) . '/library/styles/staff-listings-front.css' , 5 , NULL );
@@ -257,27 +273,10 @@ if ( !class_exists( 'Staff_Listing' ) ) {
   
     function admin_init() {
 
-      # These categories prevenet WordPress from serving a 404 error when people goto /staff
-      $required_category = array(
-        'cat_name' => 'Staff Listing',
-        'category_description' => 'DO NOT USE: This is a place holder for the Staff Listing Plugin!',
-        'category_nicename' => 'staff',
-        'category_parent' => ''
-      );
-      wp_insert_category( $required_category );
-
-      $required_category = array(
-          'cat_name' => 'Departments',
-          'category_description' => 'DO NOT USE: This is a place holder for the Staff Listing Plugin!',
-          'category_nicename' => 'departments',
-          'category_parent' => ''
-      );
-      wp_insert_category( $required_category );
-
       # Naming of hook is intentional:
       # http://codex.wordpress.org/Plugin_API/Action_Reference/manage_posts_custom_column
-      add_filter( 'manage_edit-staff_listing_columns' , array( &$this , 'edit_columns' ) );
-      add_action( 'manage_posts_custom_column' , array( &$this , 'custom_columns' ) );
+      add_filter( 'manage_edit-staff_listing_columns' , array( &$this , 'add_custom_columns' ) );
+      add_action( 'manage_posts_custom_column' , array( &$this , 'configure_custom_columns' ) );
 
       # Custom meta boxes for the edit staff screen
       add_meta_box( 'staff_listing_title' , 'Position or Title' , array( &$this , 'meta_options' ) , 'staff_listing', 'normal' , 'high' );
