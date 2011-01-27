@@ -1,34 +1,41 @@
 /* Staff Listing page. */
-#staff-listing > h3, #department-listing > h3 { background:#FFF; width:98%; padding:0 1%; margin:auto; border:1px solid #EEE; -moz-border-radius: 5px; }
+#staff-listing, #department-listing { font-family: Helvetica, Arial; font-weight:normal; color:#000; font-size:12px; }
+#staff-listing > h3, #department-listing > h3 { background:#FFF; width:900px; padding:1%; margin:auto 10px; border:1px solid #EEE; -moz-border-radius: 5px; font-size:16px; font-weight:bold; }
 
-#staff-listing .staff-listing-item { background:#FFF; width:215px; height:400px; float:left; margin:10px; border:1px solid #EEE; -moz-border-radius: 5px; overflow:hidden; }
-#staff-listing .staff-listing-item .staff-listing-member-departments,
-#staff-listing .staff-listing-item .staff-listing-member-image,
-#staff-listing .staff-listing-item .staff-listing-member-title,
-#staff-listing .staff-listing-item .staff-listing-member-name { padding:0px 10px; }
-#staff-listing .staff-listing-item .staff-listing-member-image { padding:10px; text-align:center; }
-#staff-listing .staff-listing-item .staff-listing-member-name a { color:#000; font:bold 15px Helvetica; }
-#staff-listing .staff-listing-item .staff-listing-member-title { color:#000; font:normal 12px Helvetica; }
-#staff-listing .staff-listing-item .staff-listing-member-content { color:#000; font:normal 12px Helvetica; height:130px; padding:10px; overflow:hidden; margin-bottom:10px; }
-#staff-listing .staff-listing-item .staff-listing-member-departments { color:#000; font:normal 12px Helvetica; padding:0 10px 10px 10px; }
+#staff-listing .list-item { background:#FFF; width:215px; height:400px; float:left; margin:10px; border:1px solid #EEE; -moz-border-radius: 5px; overflow:hidden; }
+#staff-listing .list-item .departments,
+#staff-listing .list-item .member .title,
+#staff-listing .list-item .member .name { padding:0px 10px; }
+#staff-listing .list-item .member .image { padding:10px; text-align:center; }
+#staff-listing .list-item .member .name a { color:#000; font:bold 15px Helvetica; }
+#staff-listing .list-item .member .title { color:#000; font:normal 12px Helvetica; }
+#staff-listing .list-item .member .content { color:#000; font:normal 12px Helvetica; height:130px; padding:10px; overflow:hidden; margin-bottom:10px; }
+#staff-listing .list-item .departments { color:#000; font:normal 12px Helvetica; padding:0 10px 10px 10px; }
 
 /* Department Listing page. */
-#department-listing .department-listing-item { background:#FFF; width:215px; float:left; margin:10px; border:1px solid #EEE; -moz-border-radius: 5px; }
-#department-listing .department-listing-item .department-listing-name { padding:10px; text-align:center; }
-#department-listing .department-listing-item .department-listing-name a { color:#000; font:bold 15px Helvetica; text-decoration:none; }
+#department-listing .list-item { background:#FFF; width:215px; float:left; margin:10px; border:1px solid #EEE; -moz-border-radius: 5px; }
+#department-listing .list-item .name { padding:10px; text-align:center; }
+#department-listing .list-item .name a { color:#000; font:bold 15px Helvetica; text-decoration:none; }
 
 /* Single Page */
-#staff-listing-single .staff-listing-member { background:#FFF; margin:10px; border:1px solid #EEE; -moz-border-radius:5px; padding:10px; }
-#staff-listing-single .staff-listing-member .staff-listing-departments,
-#staff-listing-single .staff-listing-member .staff-listing-image,
-#staff-listing-single .staff-listing-member .staff-listing-title,
-#staff-listing-single .staff-listing-member .staff-listing-name { padding:0px 10px; clear:none; }
-#staff-listing-single .staff-listing-member .staff-listing-image { text-align:center; float:left; margin-right:10px; }
-#staff-listing-single .staff-listing-member .staff-listing-name a { color:#000; font:bold 16px Helvetica; }
-#staff-listing-single .staff-listing-member .staff-listing-title { color:#000; font:normal 14px Helvetica; }
-#staff-listing-single .staff-listing-member .staff-listing-content { color:#000; font:normal 12px Helvetica; padding:10px; }
-#staff-listing-single .staff-listing-member .staff-listing-departments { color:#000; font:normal 12px Helvetica; padding:10px; }
+#staff-listing #single .member { background:#FFF; margin:10px; border:1px solid #EEE; -moz-border-radius:5px; padding:10px; }
+#staff-listing #single .member .departments,
+#staff-listing #single .member .image,
+#staff-listing #single .member .title,
+#staff-listing #single .member .name { padding:0px 10px; clear:none; }
+#staff-listing #single .member .image { text-align:center; float:left; margin-right:10px; }
+#staff-listing #single .member .name a { font-size:16px; }
+#staff-listing #single .member .title { font-size:14px; }
+#staff-listing #single .member .content,
+#staff-listing #single .member .departments { padding:10px; }
 
 /* Reviews */
-#staff-listing-single .reply,
-#staff-listing-single .comment-author { display:none; }
+#staff-listing #single .reply,
+#staff-listing #single .comment-author { display:none; }
+#staff-listing #single .navigation { margin:10px; width:100%; text-align:center; }
+
+/* Shared */
+#staff-listing .no-thumb,
+#department-listing .no-thumb { height:100px; width:100px; background:#e1e1e1; border:1px solid #CCC; margin:auto; }
+#staff-listing .no-thumb span,
+#department-listing .no-thumb span { display:block; margin-top:40px; text-align:center; }

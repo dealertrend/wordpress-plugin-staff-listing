@@ -15,24 +15,21 @@
   $departments = array_filter( explode( '<br />' , wp_list_categories( $parameters ) ), 'trim' );
 
   get_header();
+?>
 
-  echo '<div id="department-listing">';
+  <div id="department-listing">
+    <h3>Departments</h3>
+    <?php if( $departments[ 0 ] != 'No categories' ) : foreach( $departments as $department ) : ?>
+      <div class="list-item">
+        <h2 class="name">
+          <?php echo trim( $department ); ?>
+        </h2>
+      </div>
+    <?php endforeach; else: ?>
+      <p>Sorry, there are currently no active departments.</p>
+    <?php endif; ?>
 
-  echo '<h3>Departments</h3>';
-
-  if( $departments[ 0 ] != 'No categories' ) : foreach( $departments as $department ) :
-    ?>
-    <div class="department-listing-item">
-      <h2 class="department-listing-name">
-        <?php echo trim( $department ); ?>
-      </h2>
-    </div>
-  <?php endforeach; else: ?>
-    <p>Sorry, there are currently no active departments.</p>
-  <?php endif;?>
-
-<?php wp_reset_query(); ?>
-
-  </div>
+    <?php wp_reset_query(); ?>
+  </div><!-- #department-listing -->
 
 <?php get_footer(); ?>

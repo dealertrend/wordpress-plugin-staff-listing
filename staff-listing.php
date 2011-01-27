@@ -8,6 +8,8 @@
 */
 
 # TODO: Create a new taxonomy for reviews and stop depending on the comments template.
+# TODO: Fix the comment system.
+# TODO: Look into poor WordPress redirections.
 
 # Sanity check.
 if ( !class_exists( 'Staff_Listing' ) ) {
@@ -42,7 +44,8 @@ if ( !class_exists( 'Staff_Listing' ) ) {
       $new_rules[ '^(departments)$' ] = 'index.php?post_type=staff_listing&taxonomy=departments';
       $new_rules[ '^(departments)/([^/]+)' ] = 'index.php?post_type=staff_listing&taxonomy=departments&departments=$matches[2]';
       $new_rules[ '^(staff)$' ] = 'index.php?post_type=staff_listing&taxonomy=staff_listing';
-      $new_rules[ '^(staff)/([^/]+)' ] = 'index.php?post_type=staff_listing&taxonomy=staff_listing&name=$matches[2]';
+      $new_rules[ '^(staff)/([^/]+)$' ] = 'index.php?post_type=staff_listing&taxonomy=staff_listing&name=$matches[2]';
+      $new_rules[ '^(staff)/([^/]+)/comment-page-([0-9]{1,})/?$' ] = 'index.php?post_type=staff_listing&taxonomy=staff_listing&name=$matches[2]&cpage=$matches[3]';
 
       return $new_rules + $existing_rules;
 
@@ -58,13 +61,16 @@ if ( !class_exists( 'Staff_Listing' ) ) {
     } # End flush_rewrite_rules()
 
     # Hijack the output of the comments template.
-    # TODO: Make this work with the new rewrite rules.
     function hijack_reviews() {
 
       global $wp_query;
 
-      if( $wp_query->query_vars[ 'category_name' ] == 'staff' ) {
+      $taxonomy = ( isset( $wp_query->query_vars[ 'taxonomy' ] ) ) ? $wp_query->query_vars[ 'taxonomy' ] : NULL;
+      $name = ( isset( $wp_query->query_vars[ 'name' ] ) ) ? $wp_query->query_vars[ 'name' ] : NULL;
+
+      if( $taxonomy == 'staff_listing' && $name != NULL ) {
         include( dirname( __FILE__ ) . '/library/templates/reviews.php' );
+        exit();
       }
 
     } # End hijack_reviews()
@@ -148,7 +154,7 @@ if ( !class_exists( 'Staff_Listing' ) ) {
 
     } # End add_custom_columns()
   
-    # Configure custom columns to add to the member list in admin
+    # Configure custom columns to add to the member list in the administration area.
     function configure_custom_columns( $column ) {
 
       # Bring the post into scope.
@@ -157,7 +163,6 @@ if ( !class_exists( 'Staff_Listing' ) ) {
       switch( $column ) {
 
         case 'staff_listing_photo':
-
           $thumb = the_post_thumbnail( array( 100 , 100 ) );
           if( !has_post_thumbnail( $post->ID ) ) { echo '<div style="width:100px; height:100px; background:#e1e1e1; border:1px solid #CCC;"><span style="margin:40px 0; text-align:center; display:block;">No Picture</span></div>'; }
 
@@ -283,7 +288,7 @@ if ( !class_exists( 'Staff_Listing' ) ) {
 
     } # End admin_init()
   
-    # Admin post meta contents
+    # Obtain the new custom field values and have them represented on the edit screen of our new custom post type.
     function meta_options() {
 
       # Bring the post into scope.
