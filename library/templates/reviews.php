@@ -51,4 +51,6 @@
 
 </div><!-- #staff-listing-comments -->
 
+</div><!-- This is a saftey net. It's needed because of the exit() -->
+
 <?php get_footer(); ?>

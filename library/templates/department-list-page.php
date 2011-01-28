@@ -16,20 +16,19 @@
 
   get_header();
 ?>
-
-  <div id="department-listing">
-    <h3>Departments</h3>
-    <?php if( $departments[ 0 ] != 'No categories' ) : foreach( $departments as $department ) : ?>
-      <div class="list-item">
-        <h2 class="name">
-          <?php echo trim( $department ); ?>
-        </h2>
-      </div>
-    <?php endforeach; else: ?>
-      <p>Sorry, there are currently no active departments.</p>
-    <?php endif; ?>
-
-    <?php wp_reset_query(); ?>
-  </div><!-- #department-listing -->
-
+  <div id="staff-listing" class="department-listing">
+    <div class="wrapper">
+      <h3 class="header">Departments</h3>
+      <?php if( $departments[ 0 ] != 'No categories' ) : foreach( $departments as $department ) : ?>
+        <div class="list-item">
+          <h2 class="name">
+            <?php echo trim( $department ); ?>
+          </h2>
+        </div>
+      <?php endforeach; else: ?>
+        <p>Sorry, there are currently no active departments.</p>
+      <?php endif; ?>
+      <?php wp_reset_query(); ?>
+    </div><!-- .wrapper -->
+  </div><!-- #staff-listing .department-listing -->
 <?php get_footer(); ?>

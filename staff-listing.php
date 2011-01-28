@@ -8,8 +8,6 @@
 */
 
 # TODO: Create a new taxonomy for reviews and stop depending on the comments template.
-# TODO: Fix the comment system.
-# TODO: Look into poor WordPress redirections.
 
 # Sanity check.
 if ( !class_exists( 'Staff_Listing' ) ) {
@@ -28,7 +26,8 @@ if ( !class_exists( 'Staff_Listing' ) ) {
       add_action( 'admin_init' , array( &$this , 'admin_init' ) );
       add_action( 'wp_insert_post' , array ( &$this , 'add_custom_fields' ) , 10 , 2 );
 
-      add_action( 'wp_print_styles' , array( &$this, 'staff_styles' ), 5 , null );
+      add_action( 'wp_print_styles' , array( &$this, 'front_styling' ), 5 , null );
+      add_action( 'admin_print_styles' , array( &$this, 'admin_styling' ), 5 , null );
 
       # Hijack the content.
       add_action( 'template_redirect' , array( &$this , 'hijack_content' ) );
@@ -164,7 +163,7 @@ if ( !class_exists( 'Staff_Listing' ) ) {
 
         case 'staff_listing_photo':
           $thumb = the_post_thumbnail( array( 100 , 100 ) );
-          if( !has_post_thumbnail( $post->ID ) ) { echo '<div style="width:100px; height:100px; background:#e1e1e1; border:1px solid #CCC;"><span style="margin:40px 0; text-align:center; display:block;">No Picture</span></div>'; }
+          if( !has_post_thumbnail( $post->ID ) ) { echo '<div class="staff-listing-admin no-thumb"><span>No Picture</span></div>'; }
 
           break; 
 
@@ -174,8 +173,9 @@ if ( !class_exists( 'Staff_Listing' ) ) {
  
         case 'staff_listing_title':
           $custom = get_post_custom();
+          $title = ( isset( $custom[ 'staff_listing_title' ][ 0 ] ) ) ? $custom[ 'staff_listing_title' ][ 0 ] : NULL;
           echo the_title( '<h3 style="margin:0px;">' , '</h3>' );
-          echo '<h4 style="margin:0px;">' . $custom[ 'staff_listing_title' ][ 0 ] . '</h4>';
+          echo '<h4 style="margin:0px;">' . $title . '</h4>';
           echo edit_post_link( 'edit' , '<span style="margin:0px;">' , '</span>&nbsp;-&nbsp;<a target= "_new" href="' );
           echo the_permalink();
           echo '">view</a>';
@@ -194,7 +194,7 @@ if ( !class_exists( 'Staff_Listing' ) ) {
           break;
 
         default:
-          echo 'Invalid Column Value';
+          echo 'Invalid Column Value: Please contact the plugin developer.';
           break;
 
       }
@@ -269,12 +269,19 @@ if ( !class_exists( 'Staff_Listing' ) ) {
     } # End add_custom_fields()
   
     # Display styling on the front end.
-    function staff_styles() {
+    function front_styling() {
 
       wp_register_style( 'staff_listing_style' , WP_PLUGIN_URL . '/' . basename( dirname( __FILE__ ) ) . '/library/styles/staff-listings-front.css' , 5 , NULL );
       wp_enqueue_style( 'staff_listing_style' );
 
-    } # End staff_styles()
+    } # End front-styling()
+
+    function admin_styling() {
+      
+      wp_register_style( 'staff_listing_style' , WP_PLUGIN_URL . '/' . basename( dirname( __FILE__ ) ) . '/library/styles/staff-listings-admin.css' , 5 , NULL );
+      wp_enqueue_style( 'staff_listing_style' );
+
+    }
   
     function admin_init() {
 
