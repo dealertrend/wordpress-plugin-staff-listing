@@ -3,9 +3,10 @@
   # Bring objects into scope.
   global $post;
 
+  # TODO: Add pagination.
   $parameters = array(
     'post_type' => 'staff_listing',
-    'posts_per_page' => 10, 
+    'posts_per_page' => 100, 
     'orderby' => 'date',
     'order' => 'ASC'
   );  

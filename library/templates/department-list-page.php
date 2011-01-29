@@ -3,6 +3,7 @@
   # Bring objects into scope.
   global $post;
 
+  # TODO: Add pagination...right now I think this is limited to 10 entries...by default.
   $parameters = array(
     'orderby' => 'name',
     'order' => 'ASC',
