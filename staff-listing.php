@@ -8,6 +8,7 @@
 */
 
 # TODO: Create a new taxonomy for reviews and stop depending on the comments template.
+# TODO: Figure out how to make certain fields required in the adding of staff members.
 
 # Sanity check.
 if ( !class_exists( 'Staff_Listing' ) ) {

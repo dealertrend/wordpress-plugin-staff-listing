@@ -1,25 +1,25 @@
 /* Shared */
-#staff-listing { font-family: Helvetica, Arial; font-weight:normal; color:#000; font-size:12px; background:#FFF; }
-
+#staff-listing { font-family: helvetica, arial; font-weight:normal; color:#000; font-size:12px; background:#FFF; }
+#staff-listing .wrapper { width:800px; margin:auto; position:relative; padding:0; } 
 #staff-listing .header { background:#FFF; padding:10px; margin:0 auto 10px auto; border:1px solid #EEE; font-size:16px; font-weight:bold; }
+#staff-listing .no-thumb { height:100px; width:100px; background:#e1e1e1; border:1px solid #CCC; margin:auto; display:block; text-decoration:none; margin-bottom:10px; }
+#staff-listing .no-thumb span { display:block; margin-top:40px; text-align:center; color:#000; }
+#staff-listing .row { clear:both; position:relative; border:1px solid #EEE; margin-bottom:10px; }
 
-#staff-listing .no-thumb { height:100px; width:100px; background:#e1e1e1; border:1px solid #CCC; margin:auto; }
-#staff-listing .no-thumb span { display:block; margin-top:40px; text-align:center; }
+#staff-listing .departments a { font-size:12px; margin-right:5px; text-decoration:none; }
 
-#staff-listing.member-listing .list-item { width:215px; height:400px; float:left; margin:10px; border:1px solid #EEE; overflow:hidden; }
-#staff-listing.member-listing .list-item .departments,
+#staff-listing.member-listing .list-item { width:185px; float:left; margin:10px 0px 10px 10px; position:relative; }
+#staff-listing.member-listing .list-item .name a { text-decoration:none; font-size:14px; }
 #staff-listing.member-listing .list-item .member .title,
-#staff-listing.member-listing .list-item .member .name { padding:0px 10px; }
+#staff-listing.member-listing .list-item .member .name { padding:0px 10px; color:#000; text-align:center; }
 #staff-listing.member-listing .list-item .member .image { padding:10px; text-align:center; }
-#staff-listing.member-listing .list-item .member .name a { color:#000; font:bold 15px Helvetica; }
-#staff-listing.member-listing .list-item .member .title { color:#000; font:normal 12px Helvetica; }
-#staff-listing.member-listing .list-item .member .content { color:#000; font:normal 12px Helvetica; height:130px; padding:10px; overflow:hidden; margin-bottom:10px; }
-#staff-listing.member-listing .list-item .departments { color:#000; font:normal 12px Helvetica; padding:0 10px 10px 10px; }
+#staff-listing.member-listing .list-item .member .content { padding:10px; margin-bottom:10px; }
+#staff-listing.member-listing .list-item .departments { padding:0 10px 10px 10px; }
 
 /* Department Listing page. */
-#staff-listing.department-listing .list-item { background:#FFF; width:215px; float:left; margin:10px; border:1px solid #EEE; }
+#staff-listing.department-listing .list-item { background:#FFF; width:185px; float:left; margin:10px 0px 10px 10px; border:1px solid #EEE; }
 #staff-listing.department-listing .list-item .name { padding:10px; text-align:center; }
-#staff-listing.department-listing .list-item .name a { color:#000; font:bold 15px Helvetica; text-decoration:none; }
+#staff-listing.department-listing .list-item .name a { color:#000; font-size:14px; font-weight:bold; text-decoration:none; }
 
 /* Single Page */
 #staff-listing #single .member { background:#FFF; margin:10px; border:1px solid #EEE; padding:10px; }
@@ -28,8 +28,6 @@
 #staff-listing #single .member .title,
 #staff-listing #single .member .name { padding:0px 10px; clear:none; }
 #staff-listing #single .member .image { text-align:center; float:left; margin-right:10px; }
-#staff-listing #single .member .name a { font-size:16px; }
-#staff-listing #single .member .title { font-size:14px; }
 #staff-listing #single .member .content,
 #staff-listing #single .member .departments { padding:10px; }
 
@@ -37,3 +35,7 @@
 #staff-listing #single .reply,
 #staff-listing #single .comment-author { display:none; }
 #staff-listing #single .navigation { margin:10px; width:100%; text-align:center; }
+#staff-listing #single #reviews { clear:both; }
+#staff-listing #single .reviews-header { padding:10px; margin:10px auto 10px auto; border:1px solid #EEE; font-size:14px; font-weight:bold; }
+#staff-listing #single .reviews-list ul { list-style:none; margin:0; padding:0; }
+#staff-listing #single .reviews-list ul li { padding:5px; border:1px solid #EEE; margin-bottom:10px; display:block;  }

@@ -3,7 +3,7 @@
   global $post , $current_user;
 ?>
 
-<div id="staff-listing-comments">
+<div id="reviews">
 
 <?php if( have_comments() ): ?>
 

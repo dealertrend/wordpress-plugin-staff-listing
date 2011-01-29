@@ -1,9 +1,14 @@
 <?php
 
   # Bring objects into scope.
-  global $post , $query_string , $wp_query;
+  global $post , $wp_query;
 
-  get_header(); 
+  get_header();
+
+  $limit = count( $wp_query->posts );
+
+  $counter = 0;
+  $rows = 0; 
 
 ?>
   <div id="staff-listing" class="member-listing">
@@ -12,6 +17,9 @@
         echo '<h3>' . $wp_query->queried_object->name . '</h3>';
       ?>  
       <?php if( have_posts() ) : while ( have_posts() ) : the_post(); ?>
+      <?php if( $counter % 4 == 0 || $counter == 0 ): $rows++; ?>
+        <div class="row">
+      <?php endif; $counter++; ?>
         <div class="list-item">
           <div class="member">
             <div class="image">
@@ -43,6 +51,10 @@
             </div><!-- .content -->
           </div><!-- .member -->
         </div><!-- .list-item -->
+        <?php if( $counter % 4 == 0 || $counter == $limit ):  ?>  
+          <div style="clear:both;"></div>
+          </div><!-- .row -->
+        <?php endif; ?>
       <?php endwhile; else: ?>
         <p>Sorry, no listings matched your criteria.</p>
       <?php endif; ?>

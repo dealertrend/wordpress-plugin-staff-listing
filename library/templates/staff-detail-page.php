@@ -11,11 +11,6 @@
   <div id="staff-listing">
     <div class="wrapper">
       <div id="single">
-        <?php
-          if( isset( $wp_query->query_vars[ 'name' ] ) ) { 
-            echo '<h3>' . get_the_term_list( $results[ 0 ]->ID , 'departments' , 'Department(s) ' , ', ' , '' ) . '</h3>';
-          }   
-        ?>  
         <?php if( have_posts() ) : while ( have_posts() ) : the_post(); ?>
           <div class="member">
             <div class="image">
