@@ -2,7 +2,7 @@
 /*
  * Plugin Name: Staff Listing
  * Plugin URI: http://www.automotivewordpresswebsites.com/website-plugin/
- * Version: 2.0
+ * Version: 2.5
  * Author: <a href="http://www.dealertrend.com/">DealerTrend Inc.</a>
  * Description: A staff listing using custom post types.
 */
