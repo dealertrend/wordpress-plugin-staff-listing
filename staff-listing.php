@@ -42,7 +42,7 @@ if ( !class_exists( 'Staff_Listing' ) ) {
       $new_rules = array();
 
       $new_rules[ '^(departments)$' ] = 'index.php?post_type=staff_listing&taxonomy=departments';
-      $new_rules[ '^(departments)/([^/]+)' ] = 'index.php?post_type=staff_listing&taxonomy=departments&departments=$matches[2]';
+      $new_rules[ '^(departments)/([^/]+)' ] = 'index.php?post_type=staff_listing&taxonomy=departments&departments=$matches[2]&orderby=date&order=ASC';
       $new_rules[ '^(staff)$' ] = 'index.php?post_type=staff_listing&taxonomy=staff_listing';
       $new_rules[ '^(staff)/([^/]+)$' ] = 'index.php?post_type=staff_listing&taxonomy=staff_listing&name=$matches[2]';
       $new_rules[ '^(staff)/([^/]+)/comment-page-([0-9]{1,})/?$' ] = 'index.php?post_type=staff_listing&taxonomy=staff_listing&name=$matches[2]&cpage=$matches[3]';
