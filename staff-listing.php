@@ -9,6 +9,7 @@
 
 # TODO: Create a new taxonomy for reviews and stop depending on the comments template.
 # TODO: Figure out how to make certain fields required in the adding of staff members.
+# TODO: Fix template titles. When going to list pages, the page titles are all crap.
 
 # Sanity check.
 if ( !class_exists( 'Staff_Listing' ) ) {
