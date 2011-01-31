@@ -14,7 +14,7 @@
   <div id="staff-listing" class="member-listing">
     <div class="wrapper">
       <?php
-        echo '<h3>' . $wp_query->queried_object->name . '</h3>';
+        echo '<h3 class="header">' . $wp_query->queried_object->name . '</h3>';
       ?>  
       <?php if( have_posts() ) : while ( have_posts() ) : the_post(); ?>
       <?php if( $counter % 4 == 0 || $counter == 0 ): $rows++; ?>
