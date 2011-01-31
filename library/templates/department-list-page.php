@@ -4,7 +4,6 @@
   global $post;
 
   # TODO: Add pagination...right now I think this is limited to 10 entries...by default.
-  # TODO: Fix sorting!
   $parameters = array(
     'orderby' => 'name',
     'order' => 'ASC',
