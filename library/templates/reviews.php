@@ -52,5 +52,6 @@
 </div><!-- #reviews -->
 </div><!-- .postcomments  -->
 </div><!-- #single -->
+</div><!-- #staff-listing -->
 
 <?php get_footer(); ?>
