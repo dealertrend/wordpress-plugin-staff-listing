@@ -13,7 +13,7 @@
 #staff-listing.member-listing .list-item .member .title,
 #staff-listing.member-listing .list-item .member .name { padding:0px 10px; color:#000; text-align:center; font-size:12px; }
 #staff-listing.member-listing .list-item .member .image { padding:10px; text-align:center; }
-#staff-listing.member-listing .list-item .member .content { padding:10px; margin-bottom:10px; }
+#staff-listing.member-listing .list-item .member .content { padding: 0 10px 10px 10px; margin:0 0 10px 0; }
 
 /* Department Listing page. */
 #staff-listing.department-listing .list-item { background:#FFF; width:185px; float:left; margin:10px 0px 10px 10px; border:1px solid #EEE; }
