@@ -22,12 +22,11 @@
 
 /* Single Page */
 #staff-listing #single .member { background:#FFF; margin:10px; border:1px solid #EEE; padding:10px; }
-#staff-listing #single .member .departments,
 #staff-listing #single .member .image,
 #staff-listing #single .member .title,
 #staff-listing #single .member .name { padding:0px 10px; clear:none; font-size:12px; }
 #staff-listing #single .member .image { text-align:center; float:left; margin-right:10px; }
-#staff-listing #single .member .content,
+
 
 /* Reviews */
 #staff-listing #single .reply,
