@@ -6,7 +6,7 @@
 #staff-listing .no-thumb span { display:block; margin-top:40px; text-align:center; color:#000; }
 #staff-listing .row { clear:both; position:relative; border:1px solid #EEE; margin-bottom:10px; }
 
-#staff-listing .departments a { font-size:12px; margin-right:5px; text-decoration:none; }
+#staff-listing .departments a { font-size:10px; text-decoration:none; }
 
 #staff-listing.member-listing .list-item { width:185px; float:left; margin:10px 0px 10px 10px; position:relative; }
 #staff-listing.member-listing .list-item .name a { text-decoration:none; font-size:14px; }
@@ -14,7 +14,6 @@
 #staff-listing.member-listing .list-item .member .name { padding:0px 10px; color:#000; text-align:center; font-size:12px; }
 #staff-listing.member-listing .list-item .member .image { padding:10px; text-align:center; }
 #staff-listing.member-listing .list-item .member .content { padding:10px; margin-bottom:10px; }
-#staff-listing.member-listing .list-item .departments { padding:0 10px 10px 10px; }
 
 /* Department Listing page. */
 #staff-listing.department-listing .list-item { background:#FFF; width:185px; float:left; margin:10px 0px 10px 10px; border:1px solid #EEE; }
@@ -29,7 +28,6 @@
 #staff-listing #single .member .name { padding:0px 10px; clear:none; font-size:12px; }
 #staff-listing #single .member .image { text-align:center; float:left; margin-right:10px; }
 #staff-listing #single .member .content,
-#staff-listing #single .member .departments { padding:10px; }
 
 /* Reviews */
 #staff-listing #single .reply,
