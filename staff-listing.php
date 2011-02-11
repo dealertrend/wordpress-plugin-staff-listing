@@ -44,7 +44,7 @@ if ( !class_exists( 'Staff_Listing' ) ) {
       global $wp_query;
 
       if( $wp_query->is_tax ) { 
-        $title = str_replace( 'Departments' , '' , $title );
+        $title = str_replace( 'Manage Departments' , '' , $title );
       }   
 
       return $title;
