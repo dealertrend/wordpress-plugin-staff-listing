@@ -35,7 +35,20 @@ if ( !class_exists( 'Staff_Listing' ) ) {
       add_action( 'template_redirect' , array( &$this , 'hijack_content' ) );
       add_action( 'comments_template' , array( &$this , 'hijack_reviews' ) );
 
+      add_action( 'wp_title' , array( &$this , 'set_page_titles' ) );
+
     } # End Constructor
+
+    # Strip the taxonomy name from the title.
+    function set_page_titles( $title ) { 
+      global $wp_query;
+
+      if( $wp_query->is_tax ) { 
+        $title = str_replace( 'Departments' , '' , $title );
+      }   
+
+      return $title;
+    } # End set_page_titles();
 
     # Add our own rewrite rules for our custom post type and taxonomy.
     function add_rewrite_rules( $existing_rules ) { 
