@@ -6,6 +6,9 @@
 #staff-listing .no-thumb span { display:block; margin-top:40px; text-align:center; color:#000; }
 #staff-listing .row { clear:both; position:relative; border:1px solid #EEE; margin-bottom:10px; }
 
+/* Default styling. Assume that this information isn't wanted by default. */
+#staff-listing .departments { display:none; }
+
 #staff-listing .departments a { font-size:10px; text-decoration:none; }
 
 #staff-listing.member-listing .list-item { width:185px; float:left; margin:10px 0px 10px 10px; position:relative; }
@@ -35,4 +38,4 @@
 #staff-listing #single #reviews { clear:both; }
 #staff-listing #single .reviews-header { padding:10px; margin:10px auto 10px auto; border:1px solid #EEE; font-size:14px; font-weight:bold; }
 #staff-listing #single .reviews-list ul { list-style:none; margin:0; padding:0; }
-#staff-listing #single .reviews-list ul li { padding:5px; border:1px solid #EEE; margin-bottom:10px; display:block;  }
+#staff-listing #single .reviews-list ul li { padding:5px; border:1px solid #EEE; margin-bottom:10px; display:block; }
