@@ -6,7 +6,7 @@
   # TODO: Add pagination.
   $parameters = array(
     'post_type' => 'staff_listing',
-    'posts_per_page' => 100, 
+    'posts_per_page' => -1, 
     'orderby' => 'date',
     'order' => 'ASC'
   );  

@@ -1,22 +1,31 @@
 <?php
 
-  # Bring objects into scope.
-  global $post , $wp_query;
+  global $wp_query;
+
+  # TODO: Add pagination.
+  $parameters = array(
+    'post_type' => 'staff_listing',
+    'departments' => $wp_query->query_vars['departments'],
+    'posts_per_page' => -1, 
+    'orderby' => 'date',
+    'order' => 'ASC'
+  );  
+  $the_query = new wp_query( $parameters );
+
+  $limit = count( $the_query->posts );
 
   get_header();
 
-  $limit = count( $wp_query->posts );
-
   $counter = 0;
-  $rows = 0; 
+  $rows = 0;  
 
 ?>
   <div id="staff-listing" class="member-listing">
     <div class="wrapper">
       <?php
-        echo '<h3 class="header">' . $wp_query->queried_object->name . '</h3>';
+        echo '<h3 class="header">' . $the_query->queried_object->name . '</h3>';
       ?>  
-      <?php if( have_posts() ) : while ( have_posts() ) : the_post(); ?>
+      <?php if( $the_query->have_posts() ) : while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
       <?php if( $counter % 4 == 0 || $counter == 0 ): $rows++; ?>
         <div class="row">
       <?php endif; $counter++; ?>
