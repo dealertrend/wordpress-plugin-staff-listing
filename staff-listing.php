@@ -82,7 +82,7 @@ if ( !class_exists( 'Staff_Listing' ) ) {
       $taxonomy = ( isset( $wp_query->query_vars[ 'taxonomy' ] ) ) ? $wp_query->query_vars[ 'taxonomy' ] : NULL;
       $name = ( isset( $wp_query->query_vars[ 'name' ] ) ) ? $wp_query->query_vars[ 'name' ] : NULL;
 
-      if( $taxonomy == 'staff_listing' && $name != NULL ) {
+      if( $taxonomy == 'staff_listing' && current_user_can( 'moderate_comments' ) ) {
         include( dirname( __FILE__ ) . '/library/templates/reviews.php' );
         exit();
       }
