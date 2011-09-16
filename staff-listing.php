@@ -286,14 +286,14 @@ if ( !class_exists( 'Staff_Listing' ) ) {
     # Display styling on the front end.
     function front_styling() {
 
-      wp_register_style( 'staff_listing_style' , plugins_url( '' , __FILE__ ) . '/' . basename( dirname( __FILE__ ) ) . '/library/styles/staff-listings-front.css' , 5 , NULL );
+      wp_register_style( 'staff_listing_style' , plugins_url( '' , __FILE__ ) . '/' . '/library/styles/staff-listings-front.css' , 5 , NULL );
       wp_enqueue_style( 'staff_listing_style' );
 
     } # End front-styling()
 
     function admin_styling() {
       
-      wp_register_style( 'staff_listing_style' , plugins_url( '' , __FILE__ ) . '/' . basename( dirname( __FILE__ ) ) . '/library/styles/staff-listings-admin.css' , 5 , NULL );
+      wp_register_style( 'staff_listing_style' , plugins_url( '' , __FILE__ ) . '/' . '/library/styles/staff-listings-admin.css' , 5 , NULL );
       wp_enqueue_style( 'staff_listing_style' );
 
     }
