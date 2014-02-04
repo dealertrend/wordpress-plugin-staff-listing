@@ -23,7 +23,7 @@
   <div id="staff-listing" class="member-listing">
     <div class="wrapper">
       <?php
-        echo '<h3 class="header">' . $wp_query->queried_object->name . '</h3>';
+        echo '<h3 class="header">' . single_cat_title('',false) . '</h3>';
       ?>  
       <?php if( $the_query->have_posts() ) : while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
       <?php if( $counter % 4 == 0 || $counter == 0 ): $rows++; ?>
